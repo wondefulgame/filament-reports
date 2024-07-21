@@ -4,7 +4,9 @@
 
 [Full Documentation](https://filament-reports.eightynine.dev/docs)
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+## 🛠️ Be Part of the Journey
+
+Hi, I'm Eighty Nine. I created reports plugin to solve real problems I faced as a developer. Your sponsorship will allow me to dedicate more time to enhancing these tools and helping more people. [Become a sponsor](https://github.com/sponsors/eighty9nine) and join me in making a positive impact on the developer community.
 
 ## Installation
 
