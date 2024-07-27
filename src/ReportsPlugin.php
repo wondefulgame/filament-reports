@@ -32,7 +32,7 @@ class ReportsPlugin implements Plugin
     {
 
         if (! reports()->getUseReportListPage()) {
-            // get reports with 
+            // get reports with
             $panel->navigationGroups([
                 NavigationGroup::make()
                     ->label(reports()->getNavigationLabel() ?? __('filament-reports::menu-page.nav.group'))
@@ -40,19 +40,20 @@ class ReportsPlugin implements Plugin
             ]);
             $panel->navigationItems(collect(reports()->getReports())->map(function ($report) {
                 $report = app($report);
+
                 return NavigationItem::make($report->getHeading())
                     ->url(function () use ($report) {
                         return $report->getUrl();
                     })
                     ->parentItem(get_class($report)::getNavigationParentItem() ?? reports()->getNavigationParentItem())
                     ->label(get_class($report)::getNavigationLabel() ?? $report->getHeading())
-                    ->sort(get_class($report)::getNavigationSort() ?? $report->getSort() ??  0)
+                    ->sort(get_class($report)::getNavigationSort() ?? $report->getSort() ?? 0)
                     ->badge(
                         get_class($report)::getNavigationBadge(),
                         get_class($report)::getNavigationBadgeColor()
-                        )
+                    )
                     ->icon(get_class($report)::getNavigationIcon() ?? $report->getIcon() ?? 'heroicon-o-document-text')
-                    ->group(get_class($report)::getNavigationGroup() ?? reports()->getNavigationGroup() ?? __('filament-reports::menu-page.nav.group'));  
+                    ->group(get_class($report)::getNavigationGroup() ?? reports()->getNavigationGroup() ?? __('filament-reports::menu-page.nav.group'));
             })->toArray());
         }
     }

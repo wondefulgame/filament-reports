@@ -42,7 +42,8 @@ class Report extends Page implements HasActionsPanel, HasBody, HasFooter, HasFor
 
     public int $sort = 0;
 
-    public function getSort(): int {
+    public function getSort(): int
+    {
         return $this->sort;
     }
 
