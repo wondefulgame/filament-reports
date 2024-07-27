@@ -90,7 +90,7 @@ class ReportsServiceProvider extends PackageServiceProvider
         }
 
         // Testing
-        Testable::mixin(new TestsReports());
+        Testable::mixin(new TestsReports);
     }
 
     protected function getAssetPackageName(): ?string

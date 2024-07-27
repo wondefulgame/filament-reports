@@ -18,9 +18,7 @@ class Table extends Component
 
     protected Collection $data;
 
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     public function data(Closure $dataClosure): static
     {

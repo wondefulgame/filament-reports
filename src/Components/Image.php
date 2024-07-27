@@ -13,9 +13,7 @@ class Image extends Component
      */
     protected string $view = 'filament-reports::components.image';
 
-    public function __construct(public ?string $path = null)
-    {
-    }
+    public function __construct(public ?string $path = null) {}
 
     public function getPath(): ?string
     {
