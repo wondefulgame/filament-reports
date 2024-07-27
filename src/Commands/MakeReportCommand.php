@@ -23,8 +23,8 @@ class MakeReportCommand extends Command
         $report = (string) str(
             $this->argument('name') ??
                 text(
-                    label: 'What is the page name?',
-                    placeholder: 'EditSettings',
+                    label: 'What is the report name?',
+                    placeholder: 'MyCoolReport',
                     required: true,
                 ),
         )
