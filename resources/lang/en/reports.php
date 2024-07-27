@@ -4,4 +4,5 @@
 return [
     'filters' => 'Filters',
     'print' => 'Print',
+    'filter-button-label' => 'Filter',
 ];

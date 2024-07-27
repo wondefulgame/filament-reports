@@ -48,7 +48,8 @@ trait HasFilterForm
     {
         return [
             Action::make('filter')
-                ->label('Filter')
+                ->label(__('filament-reports::reports.filter-button-label'))
+                ->icon('heroicon-o-funnel')
                 ->submit('filter')
                 ->keyBindings(['mod+s']),
         ];
