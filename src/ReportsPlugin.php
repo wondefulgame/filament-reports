@@ -3,6 +3,7 @@
 namespace EightyNine\Reports;
 
 use Filament\Contracts\Plugin;
+use Filament\Navigation\NavigationGroup;
 use Filament\Navigation\NavigationItem;
 use Filament\Panel;
 use Filament\Support\Enums\MaxWidth;
@@ -16,8 +17,6 @@ class ReportsPlugin implements Plugin
 
     public function register(Panel $panel): void
     {
-
-        // register reports
         reports()->discoverReports(
             in: config('filament-reports.reports_directory'),
             for: config('filament-reports.reports_namespace')
@@ -33,14 +32,27 @@ class ReportsPlugin implements Plugin
     {
 
         if (! reports()->getUseReportListPage()) {
+            // get reports with 
+            $panel->navigationGroups([
+                NavigationGroup::make()
+                    ->label(reports()->getNavigationLabel() ?? __('filament-reports::menu-page.nav.group'))
+                    ->icon(reports()->getNavigationIcon()),
+            ]);
             $panel->navigationItems(collect(reports()->getReports())->map(function ($report) {
                 $report = app($report);
-
-                return NavigationItem::make($report->getTitle())
+                return NavigationItem::make($report->getHeading())
                     ->url(function () use ($report) {
                         return $report->getUrl();
                     })
-                    ->group(reports()->getNavigationGroup() ?? __('filament-reports::menu-page.nav.group'));
+                    ->parentItem(get_class($report)::getNavigationParentItem() ?? reports()->getNavigationParentItem())
+                    ->label(get_class($report)::getNavigationLabel() ?? $report->getHeading())
+                    ->sort(get_class($report)::getNavigationSort() ?? $report->getSort() ??  0)
+                    ->badge(
+                        get_class($report)::getNavigationBadge(),
+                        get_class($report)::getNavigationBadgeColor()
+                        )
+                    ->icon(get_class($report)::getNavigationIcon() ?? $report->getIcon() ?? 'heroicon-o-document-text')
+                    ->group(get_class($report)::getNavigationGroup() ?? reports()->getNavigationGroup() ?? __('filament-reports::menu-page.nav.group'));  
             })->toArray());
         }
     }

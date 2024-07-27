@@ -118,13 +118,4 @@ class MenuPage extends Page
 
         return $reports;
     }
-
-    // public function mount()
-    // {
-    //     $reports = $this->getReports();
-    //     foreach ($reports as $key => $report) {
-    //         $report = app($report);
-    //         dd($report);
-    //     }
-    // }
 }

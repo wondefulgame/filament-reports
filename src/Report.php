@@ -38,7 +38,13 @@ class Report extends Page implements HasActionsPanel, HasBody, HasFooter, HasFor
 
     public ?string $logo = '/img/logo.png';
 
-    public bool $shouldOpenInNewTab = false;
+    public bool $shouldOpenInNewTab = true;
+
+    public int $sort = 0;
+
+    public function getSort(): int {
+        return $this->sort;
+    }
 
     public function getShouldOpenInNewTab(): bool
     {
