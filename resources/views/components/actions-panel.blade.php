@@ -2,7 +2,7 @@
 
     <div class="flex w-full">
         <div class="flex-grow">
-            <p class="text-xl">Filters</p>
+            <p class="text-xl">{{__('filament-reports::reports.filters')}}</p>
         </div>
         <x-filament::dropdown>
             <x-slot name="trigger">
@@ -20,7 +20,7 @@
 
                 <x-filament::dropdown.list.item @click="$printReport()"
                 icon="heroicon-o-printer">
-                    Print
+                    {{ __('filament-reports::reports.print') }}
                 </x-filament::dropdown.list.item>
             </x-filament::dropdown.list>
         </x-filament::dropdown>
