@@ -4,31 +4,29 @@
         <div class="flex-grow">
             <p class="text-xl">Filters</p>
         </div>
-        {{-- <x-filament::dropdown>
+        <x-filament::dropdown>
             <x-slot name="trigger">
-                <x-filament::button>
-                    Export
-                </x-filament::button>
+                <x-filament::icon-button icon="heroicon-o-cog-8-tooth"/>
             </x-slot>
 
             <x-filament::dropdown.list>
-                <x-filament::dropdown.list.item wire:click="exportToPdf">
+                {{-- <x-filament::dropdown.list.item wire:click="exportToPdf">
                     To PDF
                 </x-filament::dropdown.list.item>
 
                 <x-filament::dropdown.list.item @click="$exportToExcel()">
                     To Excel
-                </x-filament::dropdown.list.item>
+                </x-filament::dropdown.list.item> --}}
 
-                <x-filament::dropdown.list.item @click="$printReport()">
+                <x-filament::dropdown.list.item @click="$printReport()"
+                icon="heroicon-o-printer">
                     Print
                 </x-filament::dropdown.list.item>
             </x-filament::dropdown.list>
-        </x-filament::dropdown> --}}
+        </x-filament::dropdown>
     </div>
     <div>
-        <x-filament-panels::form :wire:key="$this->getId() . '.forms.' . $this->getFormStatePath()"
-            wire:submit="filter">
+        <x-filament-panels::form :wire:key="$this->getId() . '.forms.' . $this->getFormStatePath()" wire:submit="filter">
             {{ $this->filterForm }}
 
             <x-filament-panels::form.actions :actions="$this->getCachedFormActions()" :full-width="$this->hasFullWidthFormActions()" />

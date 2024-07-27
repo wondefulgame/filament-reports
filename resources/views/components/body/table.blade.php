@@ -7,7 +7,7 @@
     $hasColumns = $hasColumns();
     $hasSummary = $hasSummary();
 @endphp
-<x-filament-reports::table.index class="border-t-4 border-primary-500"
+<x-filament-reports::table.index class="border-t-4 border-primary-500 print:w-screen"
                                  style="width: 100%;
 border-bottom: 1px solid rgb(210, 210, 210);">
 

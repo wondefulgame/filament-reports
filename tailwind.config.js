@@ -6,6 +6,7 @@ module.exports = {
         './app/Filament/**/*.php',
         './resources/views/filament/**/*.blade.php',
         './resources/views/components/**/*.blade.php',
+        './resources/views/components/body/**/*.blade.php',
         './resources/views/**/*.blade.php',
         './vendor/filament/**/*.blade.php',
     ],
