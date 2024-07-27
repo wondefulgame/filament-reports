@@ -4,15 +4,9 @@ namespace EightyNine\Reports\Concerns;
 
 trait HasReportActions
 {
-    public function print()
-    {
-    }
+    public function print() {}
 
-    public function exportToPdf()
-    {
-    }
+    public function exportToPdf() {}
 
-    public function exportToExcel()
-    {
-    }
+    public function exportToExcel() {}
 }

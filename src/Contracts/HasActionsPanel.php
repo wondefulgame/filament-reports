@@ -2,6 +2,4 @@
 
 namespace EightyNine\Reports\Contracts;
 
-interface HasActionsPanel
-{
-}
+interface HasActionsPanel {}
