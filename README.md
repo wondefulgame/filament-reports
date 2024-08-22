@@ -174,8 +174,18 @@ Here is an example of the body section:
                 Body\Layout\BodyColumn::make()
                     ->schema([
                         Body\Table::make()
+                            ->columns([
+                                EightyNine\Reports\Components\Body\TextColumn::make("name"),
+                                EightyNine\Reports\Components\Body\TextColumn::make("age")
+                                    ->numeric()
+                            ])
                             ->data(
-                                fn(?array $filters) => $this->registrationSummary($filters)
+                                fn(?array $filters) => collect([
+                                    [ "name" => "One",   "age" => 5 ],
+                                    [ "name" => "Two",   "age" => 5 ],
+                                    [ "name" => "Three", "age" => 5 ],
+                                    [ "name" => "Four",  "age" => 5 ],
+                                ])
                             ),
                         VerticalSpace::make(),
                         Body\Table::make()
@@ -242,6 +252,32 @@ public function filterForm(Form $form): Form
                 ]),
         ]);
 }
+```
+
+### Group rows
+You can group a column in multiple rows, in order to show related data.
+
+> Please note, it is important to order by the column you wish to group the rows by, otherwise, there will be multiple groups
+
+```php
+    use EightyNine\Reports\Components\Body\TextColumn;
+
+    Body\Table::make()
+        ->columns([
+            TextColumn::make("location")
+                ->groupRows(),
+            TextColumn::make("name"),
+            TextColumn::make("age")
+                ->numeric()
+        ])
+        ->data(
+            fn(?array $filters) => collect([
+                ["location"=>"New York", "name" => "One",   "age" => 5 ],
+                ["location"=>"New York", "name" => "Two",   "age" => 5 ],
+                ["location"=>"Florida", "name" => "Three", "age" => 5 ],
+                ["location"=>"New York", "name" => "Four",  "age" => 5 ],
+            ])->orderBy('location')
+        ),
 ```
 
 ## Changelog
