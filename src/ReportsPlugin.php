@@ -22,39 +22,66 @@ class ReportsPlugin implements Plugin
             for: config('filament-reports.reports_namespace')
         );
 
-        $panel->discoverPages(
-            in: __DIR__.'/Pages',
-            for: 'EightyNine\\Reports\\Pages'
-        );
+        if (config('filament-reports.reports_custom_menu_page') == false) {
+            $panel->discoverPages(
+                in: __DIR__ . '/Pages',
+                for: 'EightyNine\\Reports\\Pages'
+            );
+        }
     }
 
     public function boot(Panel $panel): void
     {
-
-        if (! reports()->getUseReportListPage()) {
+        if (!reports()->getUseReportListPage()) {
             // get reports with
             $panel->navigationGroups([
                 NavigationGroup::make()
-                    ->label(reports()->getNavigationLabel() ?? __('filament-reports::menu-page.nav.group'))
+                    ->label(
+                        reports()->getNavigationLabel() ??
+                            __('filament-reports::menu-page.nav.group')
+                    )
                     ->icon(reports()->getNavigationIcon()),
             ]);
-            $panel->navigationItems(collect(reports()->getReports())->map(function ($report) {
-                $report = app($report);
+            $panel->navigationItems(
+                collect(reports()->getReports())
+                    ->map(function ($report) {
+                        $report = app($report);
 
-                return NavigationItem::make($report->getHeading())
-                    ->url(function () use ($report) {
-                        return $report->getUrl();
+                        return NavigationItem::make($report->getHeading())
+                            ->url(function () use ($report) {
+                                return $report->getUrl();
+                            })
+                            ->parentItem(
+                                get_class($report)::getNavigationParentItem() ??
+                                    reports()->getNavigationParentItem()
+                            )
+                            ->label(
+                                get_class($report)::getNavigationLabel() ??
+                                    $report->getHeading()
+                            )
+                            ->sort(
+                                get_class($report)::getNavigationSort() ??
+                                    ($report->getSort() ?? 0)
+                            )
+                            ->badge(
+                                get_class($report)::getNavigationBadge(),
+                                get_class($report)::getNavigationBadgeColor()
+                            )
+                            ->icon(
+                                get_class($report)::getNavigationIcon() ??
+                                    ($report->getIcon() ??
+                                        'heroicon-o-document-text')
+                            )
+                            ->group(
+                                get_class($report)::getNavigationGroup() ??
+                                    (reports()->getNavigationGroup() ??
+                                        __(
+                                            'filament-reports::menu-page.nav.group'
+                                        ))
+                            );
                     })
-                    ->parentItem(get_class($report)::getNavigationParentItem() ?? reports()->getNavigationParentItem())
-                    ->label(get_class($report)::getNavigationLabel() ?? $report->getHeading())
-                    ->sort(get_class($report)::getNavigationSort() ?? $report->getSort() ?? 0)
-                    ->badge(
-                        get_class($report)::getNavigationBadge(),
-                        get_class($report)::getNavigationBadgeColor()
-                    )
-                    ->icon(get_class($report)::getNavigationIcon() ?? $report->getIcon() ?? 'heroicon-o-document-text')
-                    ->group(get_class($report)::getNavigationGroup() ?? reports()->getNavigationGroup() ?? __('filament-reports::menu-page.nav.group'));
-            })->toArray());
+                    ->toArray()
+            );
         }
     }
 
@@ -190,8 +217,9 @@ class ReportsPlugin implements Plugin
         return $this;
     }
 
-    public function navigationBadgeColor(string|array|null $navigationBadgeColor)
-    {
+    public function navigationBadgeColor(
+        string|array|null $navigationBadgeColor
+    ) {
         reports()->navigationBadgeColor($navigationBadgeColor);
 
         return $this;
