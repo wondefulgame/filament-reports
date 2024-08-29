@@ -24,7 +24,7 @@ class ReportsPlugin implements Plugin
 
         if (config('filament-reports.reports_custom_menu_page') == false) {
             $panel->discoverPages(
-                in: __DIR__ . '/Pages',
+                in: __DIR__.'/Pages',
                 for: 'EightyNine\\Reports\\Pages'
             );
         }
@@ -32,7 +32,7 @@ class ReportsPlugin implements Plugin
 
     public function boot(Panel $panel): void
     {
-        if (!reports()->getUseReportListPage()) {
+        if (! reports()->getUseReportListPage()) {
             // get reports with
             $panel->navigationGroups([
                 NavigationGroup::make()
