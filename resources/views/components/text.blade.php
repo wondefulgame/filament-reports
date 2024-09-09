@@ -16,5 +16,5 @@
             default => 'text-custom-600 dark:text-custom-400',
         },
     ])">
-    {{ $text }}
+    {!! $text !!}
 </span>
