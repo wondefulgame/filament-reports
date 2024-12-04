@@ -59,7 +59,7 @@ border-bottom: 1px solid rgb(210, 210, 210);">
                                     border-top: 1px solid #aaa;
                                     font-weight: bold;
                                 ">
-                            {{ str($column->getLabel())->title() }}</x-filament-reports::table.head-cell>
+                            {{ str($column->getLabel()) }}</x-filament-reports::table.head-cell>
                     @endforeach
                 @endunless
 
