@@ -1,8 +1,8 @@
 <x-filament-panels::page>
-    <div class="flex flex-row-reverse gap-8">
+    <div class="flex flex-col gap-8 md:!flex-row-reverse">
         {{ $this->actionsPanel}}
         <x-filament-reports::table.
-            class="bg-white dark:bg-gray-900 border-gray-100 dark:border-gray-900"
+            class="bg-white border-gray-100 dark:bg-gray-900 dark:border-gray-900"
             id="fi-report"
             style="
             max-width:100%;
