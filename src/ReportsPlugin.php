@@ -78,6 +78,9 @@ class ReportsPlugin implements Plugin
                                         __(
                                             'filament-reports::menu-page.nav.group'
                                         ))
+                            )
+                            ->hidden(
+                                !$report::shouldRegisterNavigation()
                             );
                     })
                     ->toArray()
