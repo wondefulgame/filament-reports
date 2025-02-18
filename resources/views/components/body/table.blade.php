@@ -32,6 +32,7 @@ border-bottom: 1px solid rgb(210, 210, 210);">
                 @else
                     @foreach ($columns as $column)
                         @php
+                            if ($column->isHidden()) continue;
                             $alignment = $column->getAlignment() ?? \Filament\Support\Enums\Alignment::Start;
                             if (! $alignment instanceof \Filament\Support\Enums\Alignment) {
                                 $alignment = filled($alignment) ? (\Filament\Support\Enums\Alignment::tryFrom($alignment) ?? $alignment) : null;
@@ -88,6 +89,7 @@ border-bottom: 1px solid rgb(210, 210, 210);">
                         {{-- @foreach ($columns as $recordKey => $column) --}}
                         @php
                             $column = $getColumnByName($key);
+                            if ($column->isHidden()) continue;
                             $column->record($row);
                             $column->rowLoop($loop->parent);
                         @endphp
