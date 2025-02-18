@@ -9,6 +9,7 @@ Route::name('filament.')
             /** @var \Filament\Panel $panel */
             $panelId = $panel->getId();
             $hasTenancy = $panel->hasTenancy();
+            $tenantDomain = $panel->getTenantDomain();
             $tenantRoutePrefix = $panel->getTenantRoutePrefix();
             $tenantSlugAttribute = $panel->getTenantSlugAttribute();
             $domains = $panel->getDomains();
@@ -17,13 +18,32 @@ Route::name('filament.')
                 Route::domain($domain)
                     ->middleware($panel->getMiddleware())
                     ->name("{$panelId}.")
-                    ->prefix($panel->getPath().'/reports')
-                    ->group(function () use ($panel, $hasTenancy, $tenantRoutePrefix, $tenantSlugAttribute) {
+                    ->prefix( $panel->getPath().'/reports')
+                    ->group(function () use ($panel, $hasTenancy, $tenantDomain, $tenantRoutePrefix, $tenantSlugAttribute) {
 
                         Route::middleware($panel->getAuthMiddleware())
-                            ->group(function () use ($panel, $hasTenancy, $tenantRoutePrefix, $tenantSlugAttribute): void {
-                                Route::middleware($hasTenancy ? $panel->getTenantMiddleware() : [])
-                                    ->prefix($hasTenancy ? (($tenantRoutePrefix) ? "{$tenantRoutePrefix}/" : '').('{tenant'.(($tenantSlugAttribute) ? ":{$tenantSlugAttribute}" : '').'}') : '')
+                            ->group(function () use ($panel, $hasTenancy, $tenantDomain, $tenantRoutePrefix, $tenantSlugAttribute): void {
+                                $routeGroup = Route::middleware($hasTenancy ? $panel->getTenantMiddleware() : []);
+
+                                if (filled($tenantDomain)) {
+                                    $routeGroup->domain($tenantDomain);
+                                } else {
+                                    $routeGroup->prefix(
+                                        ($hasTenancy && blank($tenantDomain)) ?
+                                            (
+                                            filled($tenantRoutePrefix) ?
+                                                "{$tenantRoutePrefix}/" :
+                                                ''
+                                            ) . ('{tenant' . (
+                                                filled($tenantSlugAttribute) ?
+                                                    ":{$tenantSlugAttribute}" :
+                                                    ''
+                                                ) . '}') :
+                                            '',
+                                    );
+                                }
+
+                                $routeGroup
                                     ->group(function () use ($panel): void {
                                         Route::name('reports.')->group(function () use ($panel): void {
                                             foreach (reports()->getReports() as $report) {
@@ -37,3 +57,4 @@ Route::name('filament.')
             }
         }
     });
+
