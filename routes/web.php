@@ -18,7 +18,7 @@ Route::name('filament.')
                 Route::domain($domain)
                     ->middleware($panel->getMiddleware())
                     ->name("{$panelId}.")
-                    ->prefix( $panel->getPath().'/reports')
+                    ->prefix($panel->getPath().'/reports')
                     ->group(function () use ($panel, $hasTenancy, $tenantDomain, $tenantRoutePrefix, $tenantSlugAttribute) {
 
                         Route::middleware($panel->getAuthMiddleware())
@@ -31,14 +31,14 @@ Route::name('filament.')
                                     $routeGroup->prefix(
                                         ($hasTenancy && blank($tenantDomain)) ?
                                             (
-                                            filled($tenantRoutePrefix) ?
-                                                "{$tenantRoutePrefix}/" :
-                                                ''
-                                            ) . ('{tenant' . (
+                                                filled($tenantRoutePrefix) ?
+                                                    "{$tenantRoutePrefix}/" :
+                                                    ''
+                                            ).('{tenant'.(
                                                 filled($tenantSlugAttribute) ?
                                                     ":{$tenantSlugAttribute}" :
                                                     ''
-                                                ) . '}') :
+                                            ).'}') :
                                             '',
                                     );
                                 }
@@ -57,4 +57,3 @@ Route::name('filament.')
             }
         }
     });
-
