@@ -80,7 +80,7 @@ class ReportsPlugin implements Plugin
                                         ))
                             )
                             ->hidden(
-                                !$report::shouldRegisterNavigation()
+                                ! $report::shouldRegisterNavigation()
                             );
                     })
                     ->toArray()
