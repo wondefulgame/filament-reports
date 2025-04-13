@@ -1,4 +1,4 @@
-<div class="w-96 fi-reports-action-panel">
+<div class="fi-reports-action-panel">
 
     <div class="flex w-full">
         <div class="flex-grow">

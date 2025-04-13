@@ -1,5 +1,5 @@
 <x-filament-panels::page>
-    <div class="flex flex-col gap-8 md:!flex-row-reverse">
+    <div class="flex flex-col gap-8">
         {{ $this->actionsPanel}}
         <x-filament-reports::table.
             class="bg-white border-gray-100 dark:bg-gray-900 dark:border-gray-900"
